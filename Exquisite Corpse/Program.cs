@@ -7,6 +7,7 @@ namespace Exquisite_Corpse
     {
         static void Main(string[] args)
         {
+
             while (true)
             {
                 Console.WriteLine("Choose what mode you want to play.\n1. Random mode.\n2. Non random mode.");
@@ -31,6 +32,7 @@ namespace Exquisite_Corpse
                 {
                     Console.WriteLine("\nYou need to choose a number, 1 or 2.\n");
                 }
+
             }
 
         }
@@ -38,33 +40,60 @@ namespace Exquisite_Corpse
         static void RandomGameplay()
         {
             Random randomcheck = new Random();
-            while (true)
+            bool check = true;
+            while (check)
             {
-                string headSelect = Convert.ToString (randomcheck.Next(1, 4));
-                string bodySelect = Convert.ToString (randomcheck.Next(1, 4));
-                string feetSelect = Convert.ToString (randomcheck.Next(1, 4));
+                
+                string headSelect = Convert.ToString(randomcheck.Next(1, 4));
+                string bodySelect = Convert.ToString(randomcheck.Next(1, 4));
+                string feetSelect = Convert.ToString(randomcheck.Next(1, 4));
 
                 BuildACreature(headSelect, bodySelect, feetSelect);
+
 
                 Console.WriteLine("To play again press Y, otherwise N.");
 
                 string userInput = Console.ReadLine().ToUpper();
-                
-                if (userInput == "N")
+
+
+                while (true)
                 {
-                    break;
+                    if (userInput == "N")
+                    {
+                        check = false;
+                        break;
+
+                    }
+                    else if (userInput != "Y")
+                    {
+                        Console.WriteLine("You need to press Y or N to continue.");
+                        userInput = Console.ReadLine().ToUpper();
+
+                    }
+
+                    else if (userInput == "Y")
+                    {
+                        break;
+                    }
+
+                    
                 }
+
+
+
             }
 
 
 
-
-
         }
-        static void NonRandomGameplay()
 
+
+        static void NonRandomGameplay()
         {
-            while (true)
+
+            bool check = true;
+
+            while (check)
             {
                 bool check1 = true;
                 bool check2 = true;
@@ -106,162 +135,184 @@ namespace Exquisite_Corpse
 
                 string userInput = Console.ReadLine().ToUpper();
 
-                if (userInput == "N")
+                while (true)
                 {
+                    if (userInput == "N")
+                    {
+                        check = false;
+                        break;
+
+                    }
+                    else if (userInput != "Y")
+                    {
+                        Console.WriteLine("You need to press Y or N to continue.");
+                        userInput = Console.ReadLine().ToUpper();
+
+                    }
+
+                    else if (userInput == "Y")
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        static bool CheckNumber(string numbercheck, bool check)
+        {
+            if (!numbercheck.All(char.IsDigit))
+            {
+                Console.WriteLine("\nYou need to choose a number. Please try again.\n");
+            }
+            else if (Convert.ToInt32(numbercheck) > 0 && Convert.ToInt32(numbercheck) <= 3)
+            {
+                check = false;
+            }
+            else
+            {
+                Console.WriteLine("\nYou need to choose a number between 1 and 3.\n");
+            }
+            return check;
+        }
+
+        static void BuildACreature(string head, string body, string feet)
+        {
+
+
+            switch (Convert.ToInt32(head))
+            {
+                case 1:
+                    GhostHead();
                     break;
-                }
+
+                case 2:
+                    BugHead();
+                    break;
+
+                case 3:
+                    MonsterHead();
+                    break;
+
+                default:
+                    break;
             }
+
+
+
+            switch (Convert.ToInt32(body))
+            {
+                case 1:
+                    GhostBody();
+                    break;
+
+                case 2:
+                    BugBody();
+                    break;
+
+                case 3:
+                    MonsterBody();
+                    break;
+
+                default:
+                    Console.WriteLine("You need to choose a number");
+                    break;
+            }
+
+
+
+            switch (Convert.ToInt32(feet))
+            {
+                case 1:
+                    GhostFeet();
+                    break;
+
+                case 2:
+                    BugFeet();
+                    break;
+
+                case 3:
+                    MonsterFeet();
+                    break;
+
+                default:
+                    Console.WriteLine("You need to choose a number");
+                    break;
+            }
+
+
         }
 
-            static bool CheckNumber(string numbercheck,bool check)
-            {
-                if (!numbercheck.All(char.IsDigit))
-                {
-                    Console.WriteLine("\nYou need to choose a number. Please try again.\n");
-                }
-                else if (Convert.ToInt32(numbercheck) > 0 && Convert.ToInt32(numbercheck) <= 3)
-                {
-                    check = false;
-                }
-                else
-                {
-                    Console.WriteLine("\nYou need to choose a number between 1 and 3.\n");
-                }
-                return check;
-            }
-
-            static void BuildACreature(string head, string body, string feet)
-            {
-
-
-                switch (Convert.ToInt32(head))
-                {
-                    case 1:
-                        GhostHead();
-                        break;
-
-                    case 2:
-                        BugHead();
-                        break;
-
-                    case 3:
-                        MonsterHead();
-                        break;
-
-                    default:
-                        break;
-                }
-
-
-
-                switch (Convert.ToInt32(body))
-                {
-                    case 1:
-                        GhostBody();
-                        break;
-
-                    case 2:
-                        BugBody();
-                        break;
-
-                    case 3:
-                        MonsterBody();
-                        break;
-
-                    default:
-                        Console.WriteLine("You need to choose a number");
-                        break;
-                }
-
-
-
-                switch (Convert.ToInt32(feet))
-                {
-                    case 1:
-                        GhostFeet();
-                        break;
-
-                    case 2:
-                        BugFeet();
-                        break;
-
-                    case 3:
-                        MonsterFeet();
-                        break;
-
-                    default:
-                        Console.WriteLine("You need to choose a number");
-                        break;
-                }
-
-
-            }
-
-            static void GhostHead()
-            {
-                Console.WriteLine("     -----");
-                Console.WriteLine("    | o O |");
-                Console.WriteLine("    |  O  |");
-            }
-
-            static void GhostBody()
-            {
-                Console.WriteLine("    |     |");
-                Console.WriteLine("    |     |");
-                Console.WriteLine("    |     |");
-            }
-
-            static void GhostFeet()
-            {
-                Console.WriteLine("    |     |");
-                Console.WriteLine("    |     |");
-                Console.WriteLine("    '~~~~~'");
-            }
-
-            static void BugHead()
-            {
-                Console.WriteLine("     /   \\");
-                Console.WriteLine("     \\. ./");
-                Console.WriteLine("    (o + o)");
-            }
-
-            static void BugBody()
-            {
-                Console.WriteLine("  --|  |  |--");
-                Console.WriteLine("  --|  |  |--");
-                Console.WriteLine("  --|  |  |--");
-            }
-
-            static void BugFeet()
-            {
-                Console.WriteLine("     v   v");
-                Console.WriteLine("     *****");
-            }
-
-            static void MonsterHead()
-            {
-                Console.WriteLine("     _____");
-                Console.WriteLine(" .-,;='';_),-.");
-                Console.WriteLine("  \\_\\(),()/_/");
-                Console.WriteLine("　  (,___,)");
-            }
-
-            static void MonsterBody()
-            {
-                Console.WriteLine("   ,-/`~`\\-,___");
-                Console.WriteLine("  / /).:.('--._)");
-                Console.WriteLine(" {_[ (_,_)");
-            }
-
-            static void MonsterFeet()
-            {
-                Console.WriteLine("    |  Y  |");
-                Console.WriteLine("   /   |   \\");
-                Console.WriteLine("   \"\"\"\" \"\"\"\"");
-            }
+        static void GhostHead()
+        {
+            Console.WriteLine("     -----");
+            Console.WriteLine("    | o O |");
+            Console.WriteLine("    |  O  |");
         }
+
+        static void GhostBody()
+        {
+            Console.WriteLine("    |     |");
+            Console.WriteLine("    |     |");
+            Console.WriteLine("    |     |");
+        }
+
+        static void GhostFeet()
+        {
+            Console.WriteLine("    |     |");
+            Console.WriteLine("    |     |");
+            Console.WriteLine("    '~~~~~'");
+        }
+
+        static void BugHead()
+        {
+            Console.WriteLine("     /   \\");
+            Console.WriteLine("     \\. ./");
+            Console.WriteLine("    (o + o)");
+        }
+
+        static void BugBody()
+        {
+            Console.WriteLine("  --|  |  |--");
+            Console.WriteLine("  --|  |  |--");
+            Console.WriteLine("  --|  |  |--");
+        }
+
+        static void BugFeet()
+        {
+            Console.WriteLine("     v   v");
+            Console.WriteLine("     *****");
+        }
+
+        static void MonsterHead()
+        {
+            Console.WriteLine("     _____");
+            Console.WriteLine(" .-,;='';_),-.");
+            Console.WriteLine("  \\_\\(),()/_/");
+            Console.WriteLine("　  (,___,)");
+        }
+
+        static void MonsterBody()
+        {
+            Console.WriteLine("   ,-/`~`\\-,___");
+            Console.WriteLine("  / /).:.('--._)");
+            Console.WriteLine(" {_[ (_,_)");
+        }
+
+        static void MonsterFeet()
+        {
+            Console.WriteLine("    |  Y  |");
+            Console.WriteLine("   /   |   \\");
+            Console.WriteLine("   \"\"\"\" \"\"\"\"");
+        }
+
+
     }
+}
 
+
+
+
+    
 
     
 
