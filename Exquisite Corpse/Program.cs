@@ -7,48 +7,111 @@ namespace Exquisite_Corpse
     {
         static void Main(string[] args)
         {
-            NonRandomGameplay();
+            while (true)
+            {
+                Console.WriteLine("Choose what mode you want to play.\n1. Random mode.\n2. Non random mode.");
+
+                string userInput = Console.ReadLine();
+
+                if (!userInput.All(char.IsDigit))
+                {
+                    Console.WriteLine("\nYou need to choose a number. Please try again.\n");
+                }
+                else if (Convert.ToInt32(userInput) == 1)
+                {
+                    RandomGameplay();
+                }
+
+                else if (Convert.ToInt32(userInput) == 2)
+                {
+                    NonRandomGameplay();
+                }
+
+                else
+                {
+                    Console.WriteLine("\nYou need to choose a number, 1 or 2.\n");
+                }
+            }
+
         }
 
+        static void RandomGameplay()
+        {
+            Random randomcheck = new Random();
+            while (true)
+            {
+                string headSelect = Convert.ToString (randomcheck.Next(1, 4));
+                string bodySelect = Convert.ToString (randomcheck.Next(1, 4));
+                string feetSelect = Convert.ToString (randomcheck.Next(1, 4));
+
+                BuildACreature(headSelect, bodySelect, feetSelect);
+
+                Console.WriteLine("To play again press Y, otherwise N.");
+
+                string userInput = Console.ReadLine().ToUpper();
+                
+                if (userInput == "N")
+                {
+                    break;
+                }
+            }
+
+
+
+
+
+        }
         static void NonRandomGameplay()
 
         {
-            bool check1 = true;
-            bool check2 = true;
-            bool check3 = true;
-
-            string headSelect = "";
-            string bodySelect = "";
-            string feetSelect = "";
-
-            while (check1)
+            while (true)
             {
-                Console.WriteLine("Choose a head!\n1. Ghost head.\n2. Bug head.\n3. Monster head.");
-                headSelect = Console.ReadLine();
-                check1 = CheckNumber(headSelect, check1);
-                
-            } 
+                bool check1 = true;
+                bool check2 = true;
+                bool check3 = true;
+
+                string headSelect = "";
+                string bodySelect = "";
+                string feetSelect = "";
+
+                while (check1)
+                {
+                    Console.WriteLine("Choose a head!\n1. Ghost head.\n2. Bug head.\n3. Monster head.");
+                    headSelect = Console.ReadLine();
+                    check1 = CheckNumber(headSelect, check1);
+
+                }
 
 
-            while (check2)
-            {
-                Console.WriteLine("Choose a body!\n1. Ghost head.\n2. Bug head.\n3. Monster head.");
-                bodySelect = Console.ReadLine();
-                check2 = CheckNumber(bodySelect,check2);
+                while (check2)
+                {
+                    Console.WriteLine("Choose a body!\n1. Ghost body.\n2. Bug body.\n3. Monster body.");
+                    bodySelect = Console.ReadLine();
+                    check2 = CheckNumber(bodySelect, check2);
 
-            }
+                }
 
-            while (check3)
-            {
-                Console.WriteLine("Choose feet!\n1. Ghost head.\n2. Bug head.\n3. Monster head.");
-                feetSelect = Console.ReadLine();
-                check3 = CheckNumber(feetSelect,check3);
+                while (check3)
+                {
+                    Console.WriteLine("Choose feet!\n1. Ghost feet.\n2. Bug feet.\n3. Monster feet.");
+                    feetSelect = Console.ReadLine();
+                    check3 = CheckNumber(feetSelect, check3);
 
-            }
+                }
 
 
                 BuildACreature(headSelect, bodySelect, feetSelect);
+
+                Console.WriteLine("To play again press Y, otherwise N.");
+
+                string userInput = Console.ReadLine().ToUpper();
+
+                if (userInput == "N")
+                {
+                    break;
+                }
             }
+        }
 
             static bool CheckNumber(string numbercheck,bool check)
             {
